@@ -6,8 +6,8 @@ import Styles from './styles.module.scss';
 export default function Search({
   fetchBooks,
   books,
-  // setBooks,
-  sortByYear
+  sortByYear,
+  sortByRelevance
 }: ISearchProps) {
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -21,8 +21,7 @@ export default function Search({
   };
 
   const handleSortByRelevance = () => {
-    // const sortedBooks = sortByRelevance(books);
-    // setBooks(sortedBooks);
+    sortByRelevance(searchTerm);
   };
 
   const handleSortByYear = () => {
