@@ -1,8 +1,16 @@
+import { useEffect, useState } from 'react';
+
 import { useApp } from './context';
 import { BookComponent, SearchComponent } from './components';
+import { IBook } from './types';
 
 function App() {
-  const { books, fetchBooks, sortByYear, setBooks } = useApp();
+  const [booksToShow, setBooksToShow] = useState<IBook[]>([]);
+  const { books, fetchBooks, sortByYear, setBooks, sortByRelevance } = useApp();
+
+  useEffect(() => {
+    setBooksToShow(books);
+  }, [books]);
 
   return (
     <div className='App'>
@@ -12,11 +20,12 @@ function App() {
           books={books}
           setBooks={setBooks}
           sortByYear={sortByYear}
+          sortByRelevance={sortByRelevance}
         />
       </div>
       <div className='book'>
-        {books.map((book) => (
-          <div key={book.key} className='books'>
+        {booksToShow.map((book, index) => (
+          <div key={index} className='books'>
             <BookComponent
               title={book.title}
               author={book.author_name?.[0]}
