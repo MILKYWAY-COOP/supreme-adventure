@@ -24,16 +24,12 @@ export interface IBook {
   _version_: number;
   author_facet?: string[];
 }
-
-export interface BookWithRelevance extends IBook {
-  relevance: number;
-}
-
 export interface ISolution {
   books: IBook[];
-  setBooks: (books: BookWithRelevance[]) => void;
+  setBooks: (books: IBook[]) => void;
   fetchBooks: (newSearchTerm: string) => Promise<void>;
   sortByYear: (books: IBook[]) => void;
+  sortByRelevance: (searchTerm: string) => void;
 }
 
 export interface IBookProps {
@@ -47,6 +43,7 @@ export interface IBookProps {
 export interface ISearchProps {
   fetchBooks: (newSearchTerm: string) => Promise<void>;
   books: IBook[];
-  setBooks: (books: BookWithRelevance[]) => void;
+  setBooks: (books: IBook[]) => void;
   sortByYear: (books: IBook[]) => void;
+  sortByRelevance: (searchTerm: string) => void;
 }
