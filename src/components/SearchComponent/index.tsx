@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ISearchProps } from 'types';
-
+import debounce from 'lodash/debounce'; // import debounce from Lodash
 import Styles from './styles.module.scss';
 
 export default function Search({
@@ -13,12 +13,14 @@ export default function Search({
 
   const handleSearchInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newSearchTerm = event.target.value;
-    setTimeout(() => {
-      fetchBooks(newSearchTerm);
-      console.log('searching');
-    }, 500);
+    debounceFetchBooks(newSearchTerm);
     setSearchTerm(newSearchTerm);
   };
+
+  const debounceFetchBooks = debounce((searchTerm: string) => {
+    fetchBooks(searchTerm);
+    console.log('searching');
+  }, 500);
 
   const handleSortByRelevance = () => {
     sortByRelevance(searchTerm);
